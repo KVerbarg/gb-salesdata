@@ -56,7 +56,6 @@ Despite modifying the characteristics as described above, we have:
 - Financial inflation needs to be implemented via subsequent update of material prices
 
 # Usage
-
 `Generator.ipynb` creates the data.
 
 `masterdata.xlsx` contains the master data and respective settings which drives the calculations.
