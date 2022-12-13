@@ -19,7 +19,6 @@ Various effects were incorporated as described in `GBI_Analytics model.pdf` (pub
 [2] Klaus Freyburger implemented a Python Pandas notebook `AnalyticModelV03.ipynb` with additional effects to be able to carry forward the data into subsequent years.
 
 ## Goal
-
 We want to create sample data for SD sales orders in context of the Global Bike firm (GB) of a S/4HANA system provided by SAP University Competence Center (UCC). Instead of using a static dataset as a file for analytics, we like to import the data into a S/4HANA system and create proper sales orders. This will allow to do analytics from various DWH tools connecting to a "life" ERP source system. To be even more realistic, data will be imported on a daily basis, such that delta scenarios (only data up to the current date are available) become possible.
 
 # Requirements
