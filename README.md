@@ -40,13 +40,15 @@ Based on the characteristics used in [1], the following characteristics will be 
 | ~~C08~~ | ~~Costs~~    | ~~Costs of Goods Manufactured are adjusted by a monthly cost index~~
 | ~~C09~~ | ~~Time-dependent master data~~    | ~~➔ one customer moves to a different sales organization ➔ this is used to show the concept of "Slowly Changing Dimensions" (Kimball) (“Slowly Changing Dimensions”)~~
 | ~~C10~~ | ~~Additional effects~~    | ~~➔ a slight increase in sales for some products during Summer Olympics in 2008, 2012 and 2016 ➔ major decline on overall revenue in US after Lehman crisis in 2008 and recovery afterwards~~
+| C11 |  Years | Quantities slightly vary over the years
 
 ## Differences to previous data set
 Despite modifying the characteristics as described above, we have:
 - Less materials available in GB (e.g. "E-Bike Tailwind", "Hoverboard")
 - More materials available in GB (e.g. "Deluxe GPS-Bike Computer Royal Blue" - these materials did not have `PR00` prices yet)
 - Different materials classes (product categories)
-- We do not manually create financial data here (e.g. revenue). Instead, we rely on the business logic implemented in ERP with regards to prices, costs and currency conversion.
+- We do not manually create financial data here (e.g. revenue). Instead, we rely on the business logic implemented in ERP with regards to prices, costs and currency conversion. To support offline use of the data, we export the complete sales orders after creation in S4 including effective financial information into a file. This way, there will be no gap between offline and online use of the data.
+- Gross prices are without tax in USA and contain 19 % VAT in DE (as configured in Global Bike).
 
 ## Quantities
 - We want to have approx. 50 sales orders per working day (as in [1]). Number of positions per order is 1-8. Sales quantity per position was 1-10.
@@ -54,11 +56,12 @@ Despite modifying the characteristics as described above, we have:
 
 ## Problems
 - We only have few customers (24). We would need at least one customer per state (in US and DE) to be able to do nice analysis with geo maps. We should add customer master data in ERP accordingly (just for group ### = 000).
+- Costs are fixed in the material master (optionally, implement C08)
 
 # Usage
 In folder `generator/`:
-- `Generator.ipynb` creates the data and implements most of the above mentioned requirements.
 - `masterdata.xlsx` contains the master data and respective settings which drives the calculations.
+- `Generator.ipynb` creates the data and implements most of the above mentioned requirements.
 
 The resulting sales order data is in folder `data/`.
 
