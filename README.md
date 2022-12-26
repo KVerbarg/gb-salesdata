@@ -40,7 +40,7 @@ Based on the characteristics used in [1], the following characteristics will be 
 | ~~C08~~ | ~~Costs~~    | ~~Costs of Goods Manufactured are adjusted by a monthly cost index~~
 | ~~C09~~ | ~~Time-dependent master data~~    | ~~➔ one customer moves to a different sales organization ➔ this is used to show the concept of "Slowly Changing Dimensions" (Kimball) (“Slowly Changing Dimensions”)~~
 | ~~C10~~ | ~~Additional effects~~    | ~~➔ a slight increase in sales for some products during Summer Olympics in 2008, 2012 and 2016 ➔ major decline on overall revenue in US after Lehman crisis in 2008 and recovery afterwards~~
-| C11 |  Years | Quantities slightly vary over the years
+| C11 |  Years | Number of orders and Quantities slightly vary over the years
 
 ## Differences to previous data set
 Despite modifying the characteristics as described above, we have:
@@ -67,4 +67,4 @@ The resulting sales order data is in folder `data/`.
 
 In Folder `abap/` we have the tools to import data into a S/4HANA system.
 - `ImportPrices.ipynb` sets the prices (thus implementing C07)
-- `import2ERP.md` describes the procedure to import sales orders
+- `Import2ERP.md` describes the procedure to import sales orders
