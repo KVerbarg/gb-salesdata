@@ -51,7 +51,7 @@ Despite modifying the characteristics as described above, we have:
 - Gross prices are without tax in USA and contain 19 % VAT in DE (as configured in Global Bike).
 
 ## Quantities
-- We want to have approx. 50 sales orders per working day (as in [1]). Number of positions per order is 1-8. Sales quantity per position was 1-10.
+- We want to have approx. 10 sales orders per working day (as in [1]). Number of positions per order was 1-8. Sales quantity per position was 1-10. We will have approx. 10 for each of these.
 - Data starts in 2020 and extends into the near future (2035).
 
 ## Problems
