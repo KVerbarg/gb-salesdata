@@ -20,15 +20,18 @@ Sales organization (VKORG) controls calculation of conditions and hence currency
 The country is just an attribute of the customer and possibly different to the country of the VKORG. However, for Global Bike, customers are related to VKORG in their own country.
 
 ## Dates
-Available date fields are:
-- SalesOrderDate
-- CustomerPurchase-OrderDate
-- Pricing Date
-- RequestedDeliveryDate
-- LastChangeDate (set by S4)
-- LastChangeDateTime (set by S4)
+Available date fields are as follows (the list is not complete). 
+"t" means: will be set to the planned date of our sales order (even if it is in the past).
 
-They all can be set to values in the past (years) except the last two. We only set the SalesOrderDate.
+| Field | DB field | will be set as follows |
+|-------|----------|--------------------------------|
+| Document Date | VBAK-AUDAT | t
+| Customer Reference Date | VBKD-BSTDK | t
+| Pricing Date | VBKD-PRSDT | t
+| Billing Date | VBKD-FKDAT | t (implicitly set to t also)
+| RequestedDeliveryDate | KETDAT | t
+| LastChangeDate | VBAK-ERDAT | set by S4 to current date
+| Ship-To Party's Customer Reference Date | VBKD-BSTDK_E | left empty
 
 ## Discount
 

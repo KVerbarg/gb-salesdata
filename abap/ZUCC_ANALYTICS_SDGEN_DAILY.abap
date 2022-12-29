@@ -6,24 +6,23 @@
 REPORT zucc_analytics_sdgen_daily.
 
 CONSTANTS checked TYPE c VALUE 'X'.
-PARAMETERS p_all  AS CHECKBOX DEFAULT space.
+PARAMETERS p_all  AS CHECKBOX DEFAULT checked. "space. ************************
 PARAMETERS p_test AS CHECKBOX DEFAULT checked.
 
 * The start date to process data
 DATA ls_start TYPE d.
-ls_start = '19900101'. " last century
+ls_start = '20150101'. " long ago
 * Usually, we would only look at the data of the last month in order to improve performance
 IF p_all EQ space.
   ls_start = sy-datum - 30.
 ENDIF.
-ls_start = '19900101'. " test only - delete this line ****************************
 WRITE: / 'We start at date', ls_start.
 
 * Read planned sales order data
 * We have to do it in advance, since a DB COMMIT would break a SELECT loop
 SELECT bstnk, audat, name_org1, vkorg, vtweg, spart, discountpct
   FROM zucc_analy_sdgen INTO TABLE @DATA(lt_order)
-  WHERE audat BETWEEN @ls_start AND '19901211'       "@sy-datum   "*********** test ***************
+  WHERE audat BETWEEN @ls_start AND '20150101'       "@sy-datum   "*********** test ***************
   GROUP BY bstnk, audat, name_org1, vkorg, vtweg, spart, discountpct  "group positions to orders
   ORDER BY bstnk.
 
@@ -72,8 +71,14 @@ LOOP AT lt_order INTO ls_order.
   ls_headerx-distr_chan = checked.
   ls_header-division = ls_order-spart.   "SPART
   ls_headerx-division = checked.
-  ls_header-purch_date = ls_order-audat. "order date
+  ls_header-doc_date = ls_order-audat. "Document Date
+  ls_headerx-doc_date = checked.
+  ls_header-purch_date = ls_order-audat. "Customer Reference Date
   ls_headerx-purch_date = checked.
+  ls_header-price_date = ls_order-audat. "Date for Pricing and Exchange Rate
+  ls_headerx-price_date = checked.
+  ls_header-req_date_h = ls_order-audat. "Requested Delivery Date
+  ls_headerx-req_date_h = checked.
   ls_header-purch_no_c = ls_order-bstnk. "customer order number (our unique key)
   ls_headerx-purch_no_c = checked.
   " business partners
@@ -134,7 +139,7 @@ LOOP AT lt_order INTO ls_order.
   CLEAR: ls_cond, lt_cond, ls_condx, lt_condx.
   ls_cond-cond_type = 'HA00'.   " discount per customer as condition in the order header
   ls_condx-cond_type = checked.
-  ls_cond-cond_value = 5.  "ls_order-discountpct.         ************************************
+  ls_cond-cond_value = ls_order-discountpct.
   ls_condx-cond_value = checked.
   ls_condx-updateflag = 'I'.   " insert
   APPEND ls_cond TO lt_cond.
