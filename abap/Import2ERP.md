@@ -7,6 +7,10 @@ All activities are done in language `EN`.
 
 This is important since some field values depend on the language. The SalesOrderType is `TA` in German and `OR` in English.
 
+## Order id
+
+As the order id is created by the S4 system, we do need an additional internal id. The "Cust. Reference" (example value is "2020-01-01#000") serves this purpose. This helps to decide whether a planned order in our list is already created in S4 or not.
+
 ## Business partner id
 
 To be able to use a given customer (we only know its name) as SoldToParty later, we need to find out the business partner ID in S4 (3 ways to do it):
@@ -17,7 +21,7 @@ To be able to use a given customer (we only know its name) as SoldToParty later,
 ## Organization units
 Sales organization (VKORG) controls calculation of conditions and hence currency / taxes.
 
-The country is just an attribute of the customer and possibly different to the country of the VKORG. However, for Global Bike, customers are related to VKORG in their own country.
+The country is just an attribute of the customer and possibly different to the country of the VKORG. However, for Global Bike, customers are related to a VKORG in their own country.
 
 ## Dates
 Available date fields are as follows (the list is not complete). 
@@ -35,18 +39,13 @@ Available date fields are as follows (the list is not complete).
 
 ## Discount
 
-For later analysis, it doesn't matter whether we apply discounts on item (RA00 condition) or on header (HA00 condition) level.
-
-## Field mappings
-
-- Cust. Reference = External order id
+For later analysis, it doesn't matter whether we apply discounts on item (RA00 condition) or on header (HA00 condition) level. We will do HA00.
 
 ## Order status
 
-Wie ist der nach dem Anlegen? *************
+The order status after creationg is "open" and will not be further processed at the moment.
 
 
---------------------------------------------------------
 # Implementation
 The following DDIC objects are created in Package `ZUCC_ANALYTICS`.
 
@@ -92,7 +91,11 @@ Structure `ZUCC_ANALYTICS_SDGEN_READ` describes the row schema of the TSV input 
 | ZIEME	| DZIEME | 
 
 
-## Program for upload
+## Program to define price list
+
+`ImportPrices.ipynb` imports the prices via OData. See the documentation there. Prices have to be defined *before* we import and create sales orders.
+
+## Program for data upload
 
 `ZUCC_ANALYTICS_SDGEN_IMPORT` "Import SD data into DB table" imports the sales orders created by the generator from TSV-files into a DB table. The idea is to import all sales orders of the past and the future. The procedure may be repeated at any time (e.g. to modify sales orders to be created in the future). The actual creation of sales orders is done in the next step.
 
@@ -103,8 +106,8 @@ Parameter `p_all` "Check *all* past sales orders": Usually for the sake of perfo
 
 Parameter `p_test` "Testrun only": when checked, will not create sales orders.
 
+# Operation
 
-## doku (delete this...)
-https://codezentrale.de/tag/cl_gui_frontend_services/
+Program `ZUCC_ANALYTICS_SDGEN_DAILY` with variant `???` (Parameters p_all and P_test are unchecked) is planned as a background job on a daily basis.
 
-https://help.sap.com/docs/ABAP_PLATFORM_NEW/5a005e044eef436f8b27bbd3f73a3cfc/1dac0155370648569fe843170e07c4da.html?locale=en-US&q=CL_GUI_FRONTEND_SERVICES
+Check for success in the application log using Transaction `SLG1` and filtering for ...
