@@ -56,6 +56,10 @@ Message class `ZUCC_ANALYTICS` with Transaction `SE91`.
 | 000 | Error with code & (check sy-subrc in program) |
 | 001 | Business partner & not found |
 
+## Application Log
+In Transaction `SLG0` the object `ZUCC_ANALYTICS` and subobject `ZUCC_ANALYTICS_SDGEN` are created.
+**Workaround: Use `SACO` / `SACO_CHANGE_SA` instead.**
+
 ## Strcuture
 Structure `ZUCC_ANALYTICS_SDGEN_READ` describes the row schema of the TSV input file.
 | Component | Component type | |
@@ -112,4 +116,4 @@ Program `ZUCC_ANALYTICS_SDGEN_DAILY` with variant `???` (Parameters p_all and P_
 
 Global Bike configuration (at the point of writing this) is only valid up to the year 2030.
 
-Check for success in the application log using Transaction `SLG1` and filtering for ...
+Check for success in the application log using Transaction `SLG1` and filtering for the object `ZUCC_ANALYTICS`.
