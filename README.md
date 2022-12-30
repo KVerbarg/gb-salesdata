@@ -68,3 +68,9 @@ The resulting sales order data is in folder `data/`.
 In Folder `abap/` we have the tools to import this generated data into a S/4HANA system.
 - `ImportPrices.ipynb` sets the prices (thus implementing C07).
 - `Import2ERP.md` describes the procedure to import sales orders using ABAP.
+- `Export2xlsx.ipynb` desribes how to manually export the currently available sales orders in S4 into an MS Excel file for offline analytics use.
+
+
+# Operation and problem resolution
+
+Generation of data and setting prices should be a one-time activity. During regular operation, the background job should create sales orders on a daily basis. To troubleshoot this task, confer the description in `abap/Import2ERP.md`.
