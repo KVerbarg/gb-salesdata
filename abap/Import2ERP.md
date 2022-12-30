@@ -110,4 +110,6 @@ Parameter `p_test` "Testrun only": when checked, will not create sales orders.
 
 Program `ZUCC_ANALYTICS_SDGEN_DAILY` with variant `???` (Parameters p_all and P_test are unchecked) is planned as a background job on a daily basis.
 
+Global Bike configuration (at the point of writing this) is only valid up to the year 2030.
+
 Check for success in the application log using Transaction `SLG1` and filtering for ...

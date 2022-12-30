@@ -22,7 +22,7 @@ WRITE: / 'We start at date', ls_start.
 * We have to do it in advance, since a DB COMMIT would break a SELECT loop
 SELECT bstnk, audat, name_org1, vkorg, vtweg, spart, discountpct
   FROM zucc_analy_sdgen INTO TABLE @DATA(lt_order)
-  WHERE audat BETWEEN @ls_start AND '20150101'       "@sy-datum   "*********** test ***************
+  WHERE audat BETWEEN @ls_start AND '20150112'       "@sy-datum   "*********** test ***************
   GROUP BY bstnk, audat, name_org1, vkorg, vtweg, spart, discountpct  "group positions to orders
   ORDER BY bstnk.
 
@@ -32,6 +32,7 @@ DATA lv_so_processed TYPE i.
 DATA lv_so_created TYPE i.
 DATA lv_last_bstnk TYPE zucc_analy_sdgen-bstnk.
 CLEAR lv_last_bstnk.
+
 LOOP AT lt_order INTO ls_order.
 
   lv_so_processed = lv_so_processed + 1.
@@ -58,6 +59,7 @@ LOOP AT lt_order INTO ls_order.
 * Create sales order
   DATA lv_salesdocument LIKE  bapivbeln-vbeln. " return sales order number
   DATA lt_return TYPE TABLE OF bapiret2.
+
   " header
   DATA ls_header TYPE bapisdhd1.
   DATA ls_headerx TYPE bapisdhd1x.
@@ -81,6 +83,7 @@ LOOP AT lt_order INTO ls_order.
   ls_headerx-req_date_h = checked.
   ls_header-purch_no_c = ls_order-bstnk. "customer order number (our unique key)
   ls_headerx-purch_no_c = checked.
+
   " business partners
   DATA ls_partner TYPE bapiparnr.
   DATA lt_partner TYPE TABLE OF bapiparnr.
@@ -91,6 +94,7 @@ LOOP AT lt_order INTO ls_order.
   ls_partner-partn_role = 'WE'. " must be German value
   ls_partner-partn_numb = lv_partner.
   APPEND ls_partner TO lt_partner.
+
   " items deep insert of 1:n relation to orders
   " plus a schedule line for each item
   DATA ls_item      TYPE bapisditm.
@@ -103,6 +107,7 @@ LOOP AT lt_order INTO ls_order.
   DATA lt_schedulex TYPE TABLE OF bapischdlx.
   CLEAR: ls_item, lt_item, ls_itemx, lt_itemx.
   CLEAR: ls_schedule, lt_schedule, ls_schedulex, lt_schedulex.
+
   " position data of the order
   SELECT posnr, matnr, zmeng, zieme
     FROM zucc_analy_sdgen
@@ -131,6 +136,7 @@ LOOP AT lt_order INTO ls_order.
     ls_schedulex-req_qty     = 'X'.
     APPEND ls_schedulex TO lt_schedulex.
   ENDSELECT.
+
   " Conditions
   DATA lt_cond TYPE TABLE OF bapicond.
   DATA ls_cond TYPE bapicond.
@@ -139,11 +145,12 @@ LOOP AT lt_order INTO ls_order.
   CLEAR: ls_cond, lt_cond, ls_condx, lt_condx.
   ls_cond-cond_type = 'HA00'.   " discount per customer as condition in the order header
   ls_condx-cond_type = checked.
-  ls_cond-cond_value = ls_order-discountpct.
+  ls_cond-cond_value = - ls_order-discountpct.  "HA00 discount should be negative
   ls_condx-cond_value = checked.
   ls_condx-updateflag = 'I'.   " insert
   APPEND ls_cond TO lt_cond.
   APPEND ls_condx TO lt_condx.
+
   " Create
   CALL FUNCTION 'BAPI_SALESORDER_CREATEFROMDAT2'
     EXPORTING
@@ -187,6 +194,8 @@ LOOP AT lt_order INTO ls_order.
       WRITE: 'Document ', lv_salesdocument, ' created'.
     ENDIF.
   ENDIF.
+
+  exit. "*********************************************
 
 ENDLOOP.
 ASSERT sy-subrc EQ 0.
