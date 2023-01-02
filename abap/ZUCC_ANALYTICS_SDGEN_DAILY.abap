@@ -6,7 +6,7 @@
 REPORT zucc_analytics_sdgen_daily.
 
 CONSTANTS checked TYPE c VALUE 'X'.
-CONSTANTS l_version TYPE string VALUE 'Version 2022-12-30'.  " Update this when modifying the program
+CONSTANTS l_version TYPE string VALUE 'Version 2023-01-02'.  " Update this when modifying the program
 PARAMETERS p_all  AS CHECKBOX DEFAULT space.
 PARAMETERS p_test AS CHECKBOX DEFAULT checked.
 
@@ -276,24 +276,26 @@ LOOP AT lt_order INTO ls_order.
         EXPORTING
           i_save_all = 'X'.
       MESSAGE ID ls_return-id TYPE ls_return-type NUMBER ls_return-number WITH ls_return-message_v1 ls_return-message_v2 ls_return-message_v3 ls_return-message_v4.
-    ELSE.
+    ELSE. " commit successful
       lv_so_created = lv_so_created + 1.
       ASSERT p_test EQ space.
-      CLEAR ls_msg.
-      ls_msg-msgty     = 'I'.
-      ls_msg-msgid     = 'ZUCC_ANALYTICS'.
-      ls_msg-msgno     = 3.
-      ls_msg-msgv1     = lv_salesdocument.
-      ls_msg-msgv2     = ls_order-bstnk.
-      CALL FUNCTION 'BAL_LOG_MSG_ADD'
-        EXPORTING
-          i_log_handle = l_log_handle
-          i_s_msg      = ls_msg.
+      IF p_all EQ space. " detailed logging not for intial big import of all past orders
+        CLEAR ls_msg.
+        ls_msg-msgty     = 'I'.
+        ls_msg-msgid     = 'ZUCC_ANALYTICS'.
+        ls_msg-msgno     = 3.
+        ls_msg-msgv1     = lv_salesdocument.
+        ls_msg-msgv2     = ls_order-bstnk.
+        CALL FUNCTION 'BAL_LOG_MSG_ADD'
+          EXPORTING
+            i_log_handle = l_log_handle
+            i_s_msg      = ls_msg.
+      ENDIF.
       WRITE: 'Sales order', lv_salesdocument, 'for customer reference', ls_order-bstnk, 'created'.
     ENDIF.
   ENDIF.
 
-   EXIT. "*********************************************
+  EXIT. "*********************************************
 
 ENDLOOP.
 ASSERT sy-subrc EQ 0.
