@@ -23,6 +23,7 @@ SELECT
     , material
     , soldtoparty
     , salesdocumentdate
+    , RequestedDeliveryDate
     , orderquantity
     , orderquantityunit
     , itemgrossweight

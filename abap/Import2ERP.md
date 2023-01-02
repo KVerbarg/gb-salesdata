@@ -33,7 +33,7 @@ Available date fields are as follows (the list is not complete).
 | Customer Reference Date | VBKD-BSTDK | t
 | Pricing Date | VBKD-PRSDT | t
 | Billing Date | VBKD-FKDAT | t (implicitly set to t also)
-| RequestedDeliveryDate | KETDAT | t
+| RequestedDeliveryDate | VBAK-VDATU | t
 | LastChangeDate | VBAK-ERDAT | set by S4 to current date
 | Ship-To Party's Customer Reference Date | VBKD-BSTDK_E | left empty
 
@@ -66,7 +66,8 @@ Structure `ZUCC_ANALYTICS_SDGEN_READ` describes the row schema of the TSV input 
 |------------|----------------|---|
 | BSTNK | 		BSTNK |
 | POSNR | 		POSNR_VA |
-| AUDAT | 		AUDAT |
+| AUDAT | 		AUDAT | 
+| VDATU |   EDATU_VBAK | 
 | VKORG | 		VKORG |
 | VTWEG | 		VTWEG |
 | SPART | 		SPART |
@@ -85,6 +86,7 @@ Structure `ZUCC_ANALYTICS_SDGEN_READ` describes the row schema of the TSV input 
 | BSTNK	| BSTNK | key
 | POSNR	| POSNR_VA | key
 | AUDAT	| AUDAT | 
+| VDATU |   EDATU_VBAK | 
 | VKORG	| VKORG | 
 | VTWEG	| VTWEG | 
 | SPART	| SPART | 

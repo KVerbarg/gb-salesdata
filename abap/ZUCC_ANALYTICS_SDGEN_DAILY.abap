@@ -61,10 +61,10 @@ WRITE: / 'Processing date range', ls_start, 'to', ls_end.
 
 * Read planned sales order data
 * We have to do it in advance, since a DB COMMIT would break a SELECT loop
-SELECT bstnk, audat, name_org1, vkorg, vtweg, spart, discountpct
+SELECT bstnk, audat, vdatu, name_org1, vkorg, vtweg, spart, discountpct
   FROM zucc_analy_sdgen INTO TABLE @DATA(lt_order)
   WHERE audat BETWEEN @ls_start AND @ls_end
-  GROUP BY bstnk, audat, name_org1, vkorg, vtweg, spart, discountpct  "group positions to orders
+  GROUP BY bstnk, audat, vdatu, name_org1, vkorg, vtweg, spart, discountpct  "group positions to orders
   ORDER BY bstnk.
 
 * Next sales order
@@ -120,7 +120,7 @@ LOOP AT lt_order INTO ls_order.
   ls_headerx-purch_date = checked.
   ls_header-price_date = ls_order-audat. "Date for Pricing and Exchange Rate
   ls_headerx-price_date = checked.
-  ls_header-req_date_h = ls_order-audat. "Requested Delivery Date
+  ls_header-req_date_h = ls_order-vdatu. "Requested Delivery Date
   ls_headerx-req_date_h = checked.
   ls_header-purch_no_c = ls_order-bstnk. "customer order number (our unique key)
   ls_headerx-purch_no_c = checked.
@@ -293,7 +293,7 @@ LOOP AT lt_order INTO ls_order.
     ENDIF.
   ENDIF.
 
-  " EXIT. "*********************************************
+   EXIT. "*********************************************
 
 ENDLOOP.
 ASSERT sy-subrc EQ 0.

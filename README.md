@@ -30,17 +30,18 @@ Based on the characteristics used in [1], the following characteristics will be 
 
 | #  | Characteristic | Description
 |----|----------------|------------
-| C01 | Seasonality    | ➔ bicycles and accessories are more likely to be bought in spring and summer compared to fall and winter time ➔ however there is an exception (First Aid Kit) ➔  adoption: wholesale will likely buy after an autumn fair, so the maximum will be in winter
+| C01 | Seasonality    | ➔ bicycles and accessories are more likely to be bought in spring and summer compared to fall and winter time ➔ however there is an exception (First Aid Kit) ➔  new: wholesale will likely buy after an autumn fair, so the maximum will be in winter
 | C02 | "Small" vs. "big" customers    | ➔ pre-defined weights by customer ~~➔ customer Silicon Valley Bikes dropped ➔ customer Bavaria Bikes increases over time~~
 | C03 | Simple discount model    | customers get pre-defined discount rates dependent on their overall ~~revenue~~ weights (as of C02)
 | C04 | More / Less popular products    | ➔ there are weights by product ➔ ~~E-Bike was introduced 2010 in DE and 2014 in US~~ ➔ ~~Hoverboard was introduced in 2015 and dropped shortly afterwards~~
 | ~~C05~~ | ~~New attributes~~    | ~~➔ colors and components: A bike can be ordered in different colors (touring bikes) resp. with different components, e.g. Shimano or SRAM (race bikes and mountain bikes) ➔ Popularity of colors changes over time~~
 | C06 | Regional effects    | There is a higher demand for mountain bikes in Denver, Munich, and Heidelberg compared to all other cities.
-| C07 | Sales Prices    | ➔ Inflation: Sales prices increase/decrease per year ~~by a certain percentage~~ as defined ➔ Country-specific: sales prices are different in the US than in DE ➔ Currency: sales prices are in local currency ~~(with the exchange rate beginning of the year) ➔ Daily exchange rate (at sales order date) is delivered for special analysis; suitable exchange rate type is implemented in BW;~~ currency conversion is implemented in ERP or downstream analysis systems
+| C07 | Sales Prices    | ➔ Inflation: Sales prices increase/decrease per year ~~by a certain percentage~~ as defined ➔ Country-specific: sales prices are different in the US than in DE ➔ Currency: sales prices are in local currency ~~(with the exchange rate beginning of the year) ➔ Daily exchange rate (at sales order date) is delivered for special analysis; suitable exchange rate type is implemented in BW;~~ currency conversion is implemented in ERP or downstream analysis systems ➔ new: sales prices vary by year and country individually for each material (not just constant factors)
 | ~~C08~~ | ~~Costs~~    | ~~Costs of Goods Manufactured are adjusted by a monthly cost index~~
 | ~~C09~~ | ~~Time-dependent master data~~    | ~~➔ one customer moves to a different sales organization ➔ this is used to show the concept of "Slowly Changing Dimensions" (Kimball) (“Slowly Changing Dimensions”)~~
 | ~~C10~~ | ~~Additional effects~~    | ~~➔ a slight increase in sales for some products during Summer Olympics in 2008, 2012 and 2016 ➔ major decline on overall revenue in US after Lehman crisis in 2008 and recovery afterwards~~
-| C11 |  Years | Number of orders and Quantities slightly vary over the years
+| C11 |  Years | New: Number of orders and Quantities slightly vary over the years
+| C12 | Shipping date | New: Shipping date is later than order date, orders after autumn fair are likely to be shipped next summer
 
 ## Differences to previous data set
 Despite modifying the characteristics as described above, we have:
