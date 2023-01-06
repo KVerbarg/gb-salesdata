@@ -37,7 +37,7 @@ Based on the characteristics used in [1], the following characteristics will be 
 | ~~C05~~ | ~~New attributes~~    | ~~➔ colors and components: A bike can be ordered in different colors (touring bikes) resp. with different components, e.g. Shimano or SRAM (race bikes and mountain bikes) ➔ Popularity of colors changes over time~~
 | C06 | Regional effects    | There is a higher demand for mountain bikes in Denver, Munich, and Heidelberg compared to all other cities.
 | C07 | Sales Prices    | ➔ Inflation: Sales prices increase/decrease per year ~~by a certain percentage~~ as defined ➔ Country-specific: sales prices are different in the US than in DE ➔ Currency: sales prices are in local currency ~~(with the exchange rate beginning of the year) ➔ Daily exchange rate (at sales order date) is delivered for special analysis; suitable exchange rate type is implemented in BW;~~ currency conversion is implemented in ERP or downstream analysis systems ➔ new: sales prices vary by year and country individually for each material (not just constant factors)
-| ~~C08~~ | ~~Costs~~    | ~~Costs of Goods Manufactured are adjusted by a monthly cost index~~
+| C08 | Costs    | Costs of Goods Manufactured are adjusted ~~by a monthly cost index~~ per material and year
 | ~~C09~~ | ~~Time-dependent master data~~    | ~~➔ one customer moves to a different sales organization ➔ this is used to show the concept of "Slowly Changing Dimensions" (Kimball) (“Slowly Changing Dimensions”)~~
 | ~~C10~~ | ~~Additional effects~~    | ~~➔ a slight increase in sales for some products during Summer Olympics in 2008, 2012 and 2016 ➔ major decline on overall revenue in US after Lehman crisis in 2008 and recovery afterwards~~
 | C11 |  Years | New: Number of orders and Quantities slightly vary over the years
@@ -68,6 +68,7 @@ The resulting sales order data is in folder `data/`.
 
 In Folder `abap/` we have the tools to import this generated data into a S/4HANA system.
 - `ImportPrices.ipynb` sets the prices (thus implementing C07).
+- `ImportCosts.md` sets the costs (thus implementing C08).
 - `Import2ERP.md` describes the procedure to import sales orders using ABAP.
 - `Export2xlsx.ipynb` desribes how to manually export the currently available sales orders in S4 into an MS Excel file for offline analytics use.
 

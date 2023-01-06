@@ -89,6 +89,14 @@ LOOP AT lt_order INTO ls_order.
     CONTINUE.
   ENDIF.
 
+* Adjust the costs
+  IF NOT p_test EQ checked.
+    CALL FUNCTION 'ZUCC_ANALYTICS_SDGEN_COST'
+      EXPORTING
+        i_date = ls_order-audat
+        i_log  = l_log_handle.
+  ENDIF.
+
 * Find partner id for customer name
   DATA lv_partner TYPE vbak-kunnr.
   SELECT SINGLE partner FROM but000 INTO @lv_partner WHERE bu_sort1 = '000' AND name_org1 = @ls_order-name_org1.
@@ -294,8 +302,6 @@ LOOP AT lt_order INTO ls_order.
       WRITE: 'Sales order', lv_salesdocument, 'for customer reference', ls_order-bstnk, 'created'.
     ENDIF.
   ENDIF.
-
-  EXIT. "*********************************************
 
 ENDLOOP.
 ASSERT sy-subrc EQ 0.
