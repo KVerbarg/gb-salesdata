@@ -162,7 +162,6 @@ LOOP AT lt_order INTO ls_order.
     FROM zucc_analy_sdgen
     INTO (@ls_item-itm_number, @ls_item-material, @ls_item-target_qty, @ls_item-target_qu)
     WHERE bstnk = @ls_order-bstnk
-    AND matnr NOT IN ('DGRB2000','DGRR2000','DGRW2000','GRBL2000','GRRL2000','GRWL2000','ORBC1000')   "**************** workaround
     ORDER BY posnr.
     " item
     APPEND ls_item TO lt_item.
