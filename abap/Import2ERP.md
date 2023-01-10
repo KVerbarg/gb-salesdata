@@ -11,6 +11,24 @@ This is important since some field values depend on the language. The SalesOrder
 
 As the order id is created by the S4 system, we do need an additional internal id. The "Cust. Reference" (example value is "2020-01-01#000") serves this purpose. This helps to decide whether a planned order in our list is already created in S4 or not.
 
+## Preparation Materials
+The materials DGRB2000, DGRR2000, DGRW2000, GRBL2000, GRRL2000, GRWL2000, ORBC1000
+are only available in VKORG/VTWEG = DS00/WH and UW00/WH.
+We also need them in VKORGs DN00 and UE00.
+
+To this end, we copied material master data for the above mentioned materials between
+| Org unit | To1 | From1 | | To2 | From2 |
+|----------|-----|-------|-|-----|-------|
+| Plant    | HH00   | HD00  || MI00 | DL00
+| Stor. Loc. | FG00 | FG00  || FG00 | FG00
+| Sales Org. | DN00 | DS00  || UE00 | UW00
+| Distr. Channel | WH | WH  || WH   | WH
+
+and change "SalesOrg1" > "Delivering Plant" to HH00 or MI00, resp.
+Also adapt "Sales: General/Plant Data" > "Trans.Group" to "On pallets", "Loading Grp." to "Hand lift". Otherwise, we will get a warning in the sales order because route determination will not find a shipping point. Check the settings using the SQL for materials in `GeneratorGB.iynb`.
+
+Exception: ORBC1000 has no sales data at all. Therefore, I copied sales data from another material (GRWL2000 for org unit DN00/WH) to ORBC1000 for DN00/WH. Modify delivery plant and taxation as needed. Do this for all four sales orgs. On "Basic Data 1", change Division from 00 (cross-division) to BI. Also copy the data for all four plants / FG00 from another material and adapt fields as needed until using the material in a sales order is possible.
+
 ## Business partner id
 
 To be able to use a given customer (we only know its name) as SoldToParty later, we need to find out the business partner ID in S4 (3 ways to do it):
