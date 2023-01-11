@@ -6,7 +6,7 @@
 REPORT zucc_analytics_sdgen_daily.
 
 CONSTANTS checked TYPE c VALUE 'X'.
-CONSTANTS l_version TYPE string VALUE 'Version 2023-01-02'.  " Update this when modifying the program
+CONSTANTS l_version TYPE string VALUE 'Version 2023-01-11'.  " Update this when modifying the program
 PARAMETERS p_all  AS CHECKBOX DEFAULT space.
 PARAMETERS p_test AS CHECKBOX DEFAULT checked.
 
@@ -34,14 +34,16 @@ IF p_all EQ space.
   " Usually, we would only look at the data of the last month in order to improve performance
   ls_start = sy-datum - 30.
 ELSE.
-  ls_start = '20150101'. " long ago
+  ls_start = '20200101'.
 ENDIF.
 DATA ls_end TYPE d.
 ls_end = sy-datum.
 
 ********************************** test. remove it ***********************
-ls_start = '20150101'.
-ls_end = '20150112'.
+*ls_start = '20160101'.
+*ls_end = '20180102'.
+ls_end(4) = 2018.  "Raumschiff Enterprise
+ls_start = ls_end - 30.
 
 * logging: selected date range
 IF p_test EQ space.
@@ -73,9 +75,9 @@ DATA lv_so_created TYPE i.
 DATA lv_last_bstnk TYPE zucc_analy_sdgen-bstnk.
 CLEAR lv_last_bstnk.
 
+DATA lv_nof_orders TYPE i.
 LOOP AT lt_order INTO ls_order.
-  DATA lv_nof_orders TYPE i.
-  lv_nof_orders = sy-tfill.
+  if lv_nof_orders is INITIAL. lv_nof_orders = sy-tfill. ENDIF.
 
   ASSERT lv_last_bstnk <> ls_order-bstnk. " make sure we really group only by bstnk
   lv_last_bstnk = ls_order-bstnk.
@@ -297,13 +299,18 @@ LOOP AT lt_order INTO ls_order.
           EXPORTING
             i_log_handle = l_log_handle
             i_s_msg      = ls_msg.
+        " Intermediate flush
+        IF p_test EQ space.
+          CALL FUNCTION 'BAL_DB_SAVE'
+            EXPORTING
+              i_save_all = 'X'.
+        ENDIF.
       ENDIF.
       WRITE: 'Sales order', lv_salesdocument, 'for customer reference', ls_order-bstnk, 'created'.
     ENDIF.
   ENDIF.
 
 ENDLOOP.
-ASSERT sy-subrc EQ 0.
 
 IF p_test EQ space.
   CLEAR ls_msg.
