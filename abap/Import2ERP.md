@@ -12,6 +12,9 @@ This is important since some field values depend on the language. The SalesOrder
 As the order id is created by the S4 system, we do need an additional internal id. The "Cust. Reference" (example value is "2020-01-01#000") serves this purpose. This helps to decide whether a planned order in our list is already created in S4 or not.
 
 ## Preparation Materials
+The following manual adaptions will be incorporated in the Global Bike client. For the time being, we document the changes made.
+
+### Bike computers
 The materials DGRB2000, DGRR2000, DGRW2000, GRBL2000, GRRL2000, GRWL2000, ORBC1000
 are only available in VKORG/VTWEG = DS00/WH and UW00/WH.
 We also need them in VKORGs DN00 and UE00.
@@ -25,9 +28,19 @@ To this end, we copied material master data for the above mentioned materials be
 | Distr. Channel | WH | WH  || WH   | WH
 
 and change "SalesOrg1" > "Delivering Plant" to HH00 or MI00, resp.
-Also adapt "Sales: General/Plant Data" > "Trans.Group" to "On pallets", "Loading Grp." to "Hand lift". Otherwise, we will get a warning in the sales order because route determination will not find a shipping point. Check the settings using the SQL for materials in `GeneratorGB.iynb`.
+~~Also adapt "Sales: General/Plant Data" > "Trans.Group" from "Box" to "On pallets", "Loading Grp." from "Manual" to "Hand lift". Otherwise, we will get a warning in the sales order because route determination will not find a shipping point. Check the settings using the SQL for materials in `GeneratorGB.iynb`.~~
+Alternatively, in Global Bike, the route determination (SPRO > Sales and Distribution > Basic Functions > Routes > Route Determination > Maintain Route Determination) will be extended for all Dep. Country / Dest. Country combinations of US/DE (plus resp. zones) and with/without weight group(s), shipping condition 01 (standard), TGroup 003 (box).
+Also in SPRO > Logistics Execution > Shipping > Basic Shipping Functions > Shipping Point and Goods Receiving Point Determination > Set Up Storage-Location-Dependent Shipping Point Determination > Assign Shipping Point: add entries for loading Group 0004.
 
-Exception: ORBC1000 has no sales data at all. Therefore, I copied sales data from another material (GRWL2000 for org unit DN00/WH) to ORBC1000 for DN00/WH. Modify delivery plant and taxation as needed. Do this for all four sales orgs. On "Basic Data 1", change Division from 00 (cross-division) to BI. Also copy the data for all four plants / FG00 from another material and adapt fields as needed until using the material in a sales order is possible.
+#### ORBC1000
+Exception: ORBC1000 has no sales data at all.
+$\rightarrow$ We will not use this material at all.
+
+~~Therefore, I copied sales data from another material (GRWL2000 for org unit DN00/WH) to ORBC1000 for DN00/WH. Modify delivery plant and taxation as needed. Do this for all four sales orgs. On "Basic Data 1", change Division from 00 (cross-division) to BI. Also copy the data for all four plants / FG00 from another material and adapt fields as needed until using the material in a sales order is possible.~~
+
+~~Change the Division from BI to AS.~~
+
+~~The Base unit of measure is PC instead of EA. This cannot be changed easily, as stock and open sales orders exist.~~
 
 ## Business partner id
 
