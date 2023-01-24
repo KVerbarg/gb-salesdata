@@ -1,0 +1,41 @@
+DATE                                              20230124                                          173858
+RELEASE                                           755
+LOADED_AGRS                                       ZUCC_ANALYTICS_ODATA
+AGR_DEFINE                                        220ZUCC_ANALYTICS_ODATA                                        VERBARG     20221230075600000000000000000VERBARG     20230124172725000000000000000
+AGR_1250                                          220ZUCC_ANALYTICS_ODATA          000001B_BUP_PCPTT-A385003500    U  O000000
+AGR_1250                                          220ZUCC_ANALYTICS_ODATA          000002S_SERVICE T-A385003500    U  O000000
+AGR_1250                                          220ZUCC_ANALYTICS_ODATA          000003V_KONH_VKOT-A385003500    U  O000000
+AGR_1250                                          220ZUCC_ANALYTICS_ODATA          000004V_KONH_VKST-A385003500    U  O000000
+AGR_1250                                          220ZUCC_ANALYTICS_ODATA          000005V_VBAK_AATT-A385003500    U  O000000
+AGR_1250                                          220ZUCC_ANALYTICS_ODATA          000006V_VBAK_CCDT-A385003500    U  O000000
+AGR_1250                                          220ZUCC_ANALYTICS_ODATA          000007V_VBAK_VKOT-A385003500    U  O000000
+AGR_1251                                          220ZUCC_ANALYTICS_ODATA          000010V_VBAK_CCDT-A385003500    ACTVT     *                                                                               U  O000000
+AGR_1251                                          220ZUCC_ANALYTICS_ODATA          000013V_VBAK_CCDT-A385003500    AUART_CCD TA                                                                              U  O000000
+AGR_1251                                          220ZUCC_ANALYTICS_ODATA          000001S_SERVICE T-A385003500    SRV_NAME  *                                                                               U  O000000
+AGR_1251                                          220ZUCC_ANALYTICS_ODATA          000002S_SERVICE T-A385003500    SRV_TYPE  HT                                                                              U  O000000
+AGR_1251                                          220ZUCC_ANALYTICS_ODATA          000003V_KONH_VKST-A385003500    ACTVT     *                                                                               U  O000000
+AGR_1251                                          220ZUCC_ANALYTICS_ODATA          000004V_KONH_VKST-A385003500    KSCHL     PR00                                                                            U  O000000
+AGR_1251                                          220ZUCC_ANALYTICS_ODATA          000005B_BUP_PCPTT-A385003500    ACTVT     03                                                                              U  O000000
+AGR_1251                                          220ZUCC_ANALYTICS_ODATA          000006V_KONH_VKOT-A385003500    ACTVT     *                                                                               U  O000000
+AGR_1251                                          220ZUCC_ANALYTICS_ODATA          000007V_KONH_VKOT-A385003500    SPART     *                                                                               M  O000000
+AGR_1251                                          220ZUCC_ANALYTICS_ODATA          000008V_KONH_VKOT-A385003500    VKORG     *                                                                               M  O000000
+AGR_1251                                          220ZUCC_ANALYTICS_ODATA          000009V_KONH_VKOT-A385003500    VTWEG     *                                                                               M  O000000
+AGR_1251                                          220ZUCC_ANALYTICS_ODATA          000011V_VBAK_AATT-A385003500    ACTVT     *                                                                               U  O000000
+AGR_1251                                          220ZUCC_ANALYTICS_ODATA          000012V_VBAK_AATT-A385003500    AUART     TA                                                                              U  O000000
+AGR_1251                                          220ZUCC_ANALYTICS_ODATA          000014V_VBAK_VKOT-A385003500    SPART     *                                                                               M  O000000
+AGR_1251                                          220ZUCC_ANALYTICS_ODATA          000015V_VBAK_VKOT-A385003500    VKORG     *                                                                               M  O000000
+AGR_1251                                          220ZUCC_ANALYTICS_ODATA          000016V_VBAK_VKOT-A385003500    VTWEG     *                                                                               M  O000000
+AGR_1251                                          220ZUCC_ANALYTICS_ODATA          000017V_VBAK_VKOT-A385003500    ACTVT     *                                                                               U  O000000
+AGR_1252                                          220ZUCC_ANALYTICS_ODATA          000001$SPART
+AGR_1252                                          220ZUCC_ANALYTICS_ODATA          000002$VKORG
+AGR_1252                                          220ZUCC_ANALYTICS_ODATA          000003$VTWEG
+AGR_TEXTS                                         220ZUCC_ANALYTICS_ODATA          E00000Access to OData Service for analytics project
+AGR_TEXTS                                         220ZUCC_ANALYTICS_ODATA          E00001For the import of price list, we access the OData Service "Condition Record for
+AGR_TEXTS                                         220ZUCC_ANALYTICS_ODATA          E00002Pricing in Sales"
+AGR_FLAGS                                         220ZUCC_ANALYTICS_ODATA          COLL_AGR  VERBARG     20221230075600VERBARG     20221230075600
+AGR_FLAGS                                         220ZUCC_ANALYTICS_ODATA          DEVCLASS  VERBARG     20221230075600VERBARG     20221230075600
+AGR_FLAGS                                         220ZUCC_ANALYTICS_ODATA          MASTER_LANVERBARG     20221230075600VERBARG     20221230075600E
+AGR_FLAGS                                         220ZUCC_ANALYTICS_ODATA          RESP_USER VERBARG     20221230075600VERBARG     20221230075600
+AGR_FLAGS                                         220ZUCC_ANALYTICS_ODATA          FORCE_MIX VERBARG     20221230075831VERBARG     20230124172723
+AGR_TIME                                          220ZUCC_ANALYTICS_ODATA          PROFILE   VERBARG     20221230075831000000000000000VERBARG     20230124172723000000000000000
+AGR_LSD                                           220ZUCC_ANALYTICS_ODATA                                        E
