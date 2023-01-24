@@ -33,7 +33,7 @@ define view entity ZUCC_C_SalesDocItem
       --ShipToParty,
       --PayerParty,
       --BillToParty,
-      SalesDocumentDate,  -- has standard hierarchies, but no underlying annotation 
+      SalesDocumentDate,
       @Aggregation.default: #SUM
       OrderQuantity,
       OrderQuantityUnit,
@@ -57,8 +57,13 @@ define view entity ZUCC_C_SalesDocItem
       Subtotal1Amount,
       --Subtotal2Amount,
       --Subtotal3Amount,
+      --@Aggregation.default: #SUM
+      --Subtotal1Amount - NetAmount AS Discount,  -- Datatype CURR is not (yet) supported in arithmetic expression ;-(
+      --@Aggregation.default: #SUM
+      --NetAmount + TaxAmount AS Revenue,
+
       --ShippingPoint,
-      --RequestedDeliveryDate,
+      RequestedDeliveryDate,
       Plant,
       --Route,
       --IncotermsClassification,

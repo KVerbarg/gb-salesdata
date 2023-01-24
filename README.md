@@ -30,7 +30,7 @@ Based on the characteristics used in [1], the following characteristics will be 
 
 | #  | Characteristic | Description
 |----|----------------|------------
-| C01 | Seasonality    | ➔ bicycles and accessories are more likely to be bought in spring and summer compared to fall and winter time ➔ however there is an exception (First Aid Kit) ➔  new: wholesale will likely buy after an autumn fair, so the maximum will be in winter
+| C01 | Seasonality    | ➔ bicycles and accessories are more likely to be bought in spring and summer compared to fall and winter time ~~➔ however there is an exception (First Aid Kit)~~ ➔  new: wholesale will likely buy after an autumn fair, so the maximum will be in winter
 | C02 | "Small" vs. "big" customers    | ➔ pre-defined weights by customer ~~➔ customer Silicon Valley Bikes dropped ➔ customer Bavaria Bikes increases over time~~
 | C03 | Simple discount model    | customers get pre-defined discount rates dependent on their overall ~~revenue~~ weights (as of C02)
 | C04 | More / Less popular products    | ➔ there are weights by product ➔ ~~E-Bike was introduced 2010 in DE and 2014 in US~~ ➔ ~~Hoverboard was introduced in 2015 and dropped shortly afterwards~~
