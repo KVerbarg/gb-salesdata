@@ -71,8 +71,13 @@ In Folder `abap/` we have the tools to import this generated data into a S/4HANA
 - `ImportCosts.md` sets the costs (thus implementing C08).
 - `Import2ERP.md` describes the procedure to import sales orders using ABAP.
 - `Export2xlsx.ipynb` desribes how to manually export the currently available sales orders in S4 into an MS Excel file for offline analytics use.
+- `DeleteOrders.ipynb` can be used to remove the generated data to be able to start over again
+- The `.SAP` files contain exported roles for the sake of documentation
+- The `.abap` files contain the ABAP source code of programs and functions
 
 
 # Operation and problem resolution
 
 Generation of data and setting prices should be a one-time activity. During regular operation, the background job should create sales orders on a daily basis. To troubleshoot this task, confer the description in `abap/Import2ERP.md`.
+
+In the central productive S4H client (currently this is A03/220) there is a User `ANALYTICS` with password `analytics` which can be used by UCC customers to verify and test data.

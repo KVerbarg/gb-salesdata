@@ -1,6 +1,6 @@
 @AbapCatalog.viewEnhancementCategory: [#NONE]
 @AccessControl.authorizationCheck: #NOT_REQUIRED
-@EndUserText.label: 'Consume C_SalesDocumentItemDEX'
+@EndUserText.label: 'Consume C_SalesDocumentItemDEX_1'
 @Metadata.ignorePropagatedAnnotations: false  -- inherit semantics annotations (UoM, currency)
 @ObjectModel.usageType:{
     serviceQuality: #D,
@@ -10,7 +10,7 @@
 @VDM.viewType: #CONSUMPTION
 @Analytics.dataCategory: #CUBE
 define view entity ZUCC_C_SalesDocItem
-  as select from C_SalesDocumentItemDEX
+  as select from C_SalesDocumentItemDEX_1
   association [0..1] to I_Material as _Material on $projection.Material = _Material.Material
   association [0..1] to I_Customer as _Customer on $projection.SoldToParty = _Customer.Customer
 {

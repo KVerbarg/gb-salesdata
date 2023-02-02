@@ -12,10 +12,10 @@ This is important since some field values depend on the language. The SalesOrder
 As the order id is created by the S4 system, we do need an additional internal id. The "Cust. Reference" (example value is "2020-01-01#000") serves this purpose. This helps to decide whether a planned order in our list is already created in S4 or not.
 
 ## Preparation Materials
-The following manual adaptions will be incorporated in the Global Bike client. For the time being, we document the changes made.
+The following manual adaptions will be incorporated in the Global Bike client Version 4.2. For the time being, we document the changes made.
 
 ### Bike computers
-The materials DGRB2000, DGRR2000, DGRW2000, GRBL2000, GRRL2000, GRWL2000, ORBC1000
+The materials DGRB2000, DGRR2000, DGRW2000, GRBL2000, GRRL2000, GRWL2000
 are only available in VKORG/VTWEG = DS00/WH and UW00/WH.
 We also need them in VKORGs DN00 and UE00.
 
@@ -32,9 +32,12 @@ and change "SalesOrg1" > "Delivering Plant" to HH00 or MI00, resp.
 Alternatively, in Global Bike, the route determination (SPRO > Sales and Distribution > Basic Functions > Routes > Route Determination > Maintain Route Determination) will be extended for all Dep. Country / Dest. Country combinations of US/DE (plus resp. zones) and with/without weight group(s), shipping condition 01 (standard), TGroup 003 (box).
 Also in SPRO > Logistics Execution > Shipping > Basic Shipping Functions > Shipping Point and Goods Receiving Point Determination > Set Up Storage-Location-Dependent Shipping Point Determination > Assign Shipping Point: add entries for loading Group 0004.
 
+Moreover, these materials are not related to all needed valuation areas and then no standard price can be set.
+In the material master, we need to create the "Accounting1" view for these materials and plants HH00 / MI00.
+
 #### ORBC1000
 Exception: ORBC1000 has no sales data at all.
-$\rightarrow$ We will not use this material at all.
+$\rightarrow$ We will not use this material.
 
 ~~Therefore, I copied sales data from another material (GRWL2000 for org unit DN00/WH) to ORBC1000 for DN00/WH. Modify delivery plant and taxation as needed. Do this for all four sales orgs. On "Basic Data 1", change Division from 00 (cross-division) to BI. Also copy the data for all four plants / FG00 from another material and adapt fields as needed until using the material in a sales order is possible.~~
 
@@ -56,15 +59,15 @@ The country is just an attribute of the customer and possibly different to the c
 
 ## Dates
 Available date fields are as follows (the list is not complete). 
-"t" means: will be set to the planned date of our sales order (even if it is in the past).
+"t1" means: will be set to the planned date of our sales order (even if it is in the past). "t2" is the planned delivery data from our generator.
 
 | Field | DB field | will be set as follows |
 |-------|----------|--------------------------------|
-| Document Date | VBAK-AUDAT | t
-| Customer Reference Date | VBKD-BSTDK | t
-| Pricing Date | VBKD-PRSDT | t
-| Billing Date | VBKD-FKDAT | t (implicitly set to t also)
-| RequestedDeliveryDate | VBAK-VDATU | t
+| Document Date | VBAK-AUDAT | t1
+| Customer Reference Date | VBKD-BSTDK | t1
+| Pricing Date | VBKD-PRSDT | t1
+| Billing Date | VBKD-FKDAT | t1 (implicitly set to t1 also)
+| RequestedDeliveryDate | VBAK-VDATU | t2
 | LastChangeDate | VBAK-ERDAT | set by S4 to current date
 | Ship-To Party's Customer Reference Date | VBKD-BSTDK_E | left empty
 
@@ -128,9 +131,13 @@ Structure `ZUCC_ANALYTICS_SDGEN_READ` describes the row schema of the TSV input 
 | ZIEME	| DZIEME | 
 
 
-## Program to define price list
+## Programs to define price list and costs
 
-`ImportPrices.ipynb` imports the prices via OData. See the documentation there. Prices have to be defined *before* we import and create sales orders.
+`ImportPrices.ipynb` imports the prices via OData. See the documentation there.
+
+Additionally, `ImportCosts.ipynb` imports the costs per material and year into a transparent table. If needed, the internal price of a material will be adapted according to this data.
+
+Prices and costs have to be defined *before* we import and create sales orders.
 
 ## Program for data upload
 

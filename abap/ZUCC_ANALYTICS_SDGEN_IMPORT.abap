@@ -5,7 +5,7 @@
 *&---------------------------------------------------------------------*
 REPORT zucc_analytics_sdgen_import.
 
-* DELETE FROM zucc_analy_sdgen.  "don't
+*DELETE FROM zucc_analy_sdgen.  "don't
 
 DATA lt_files TYPE filetable.
 DATA ls_file LIKE LINE OF lt_files.

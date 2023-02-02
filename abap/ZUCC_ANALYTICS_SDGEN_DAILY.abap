@@ -6,7 +6,7 @@
 REPORT zucc_analytics_sdgen_daily.
 
 CONSTANTS checked TYPE c VALUE 'X'.
-CONSTANTS l_version TYPE string VALUE 'Version 2023-01-11'.  " Update this when modifying the program
+CONSTANTS l_version TYPE string VALUE 'Version 2023-02-01'.  " Update this when modifying the program
 PARAMETERS p_all  AS CHECKBOX DEFAULT space.
 PARAMETERS p_test AS CHECKBOX DEFAULT checked.
 
@@ -15,8 +15,8 @@ IF p_test EQ space.
   DATA ls_log       TYPE bal_s_log.
   DATA l_log_handle TYPE balloghndl.
   ls_log-extnumber  = l_version.
-  ls_log-object     = 'SACO'.  " 'ZUCC_ANALYTICS'. ***********************
-  ls_log-subobject  = 'SACO_CHANGE_SA'.  " 'ZUCC_ANALYTICS'. ***********************
+  ls_log-object     = 'ZUCC_ANALYTICS'.
+  ls_log-subobject  = 'ZUCC_ANALYTICS_SDGEN'.
   ls_log-aldate     = sy-datum.
   ls_log-altime     = sy-uzeit.
   ls_log-aluser     = sy-uname.
@@ -38,12 +38,6 @@ ELSE.
 ENDIF.
 DATA ls_end TYPE d.
 ls_end = sy-datum.
-
-********************************** test. remove it ***********************
-*ls_start = '20160101'.
-*ls_end = '20180102'.
-ls_end(4) = 2018.  "Raumschiff Enterprise
-ls_start = ls_end - 30.
 
 * logging: selected date range
 IF p_test EQ space.
@@ -77,7 +71,7 @@ CLEAR lv_last_bstnk.
 
 DATA lv_nof_orders TYPE i.
 LOOP AT lt_order INTO ls_order.
-  if lv_nof_orders is INITIAL. lv_nof_orders = sy-tfill. ENDIF.
+  IF lv_nof_orders IS INITIAL. lv_nof_orders = sy-tfill. ENDIF.
 
   ASSERT lv_last_bstnk <> ls_order-bstnk. " make sure we really group only by bstnk
   lv_last_bstnk = ls_order-bstnk.
@@ -93,10 +87,19 @@ LOOP AT lt_order INTO ls_order.
 
 * Adjust the costs
   IF NOT p_test EQ checked.
+    DATA l_changed TYPE c.
     CALL FUNCTION 'ZUCC_ANALYTICS_SDGEN_COST'
       EXPORTING
-        i_date = ls_order-audat
-        i_log  = l_log_handle.
+        i_date    = ls_order-audat
+        i_log     = l_log_handle
+      IMPORTING
+        e_changed = l_changed.
+    IF l_changed EQ checked.
+      " Unfortunately, the cost changes do not seem to take effect immediately (caching?).
+      " Hence, when costs were adapted, we abort the program here and the next start will be fine then.
+      WRITE: 'Costs adapted. Please restart.'.
+      EXIT.
+    ENDIF.
   ENDIF.
 
 * Find partner id for customer name

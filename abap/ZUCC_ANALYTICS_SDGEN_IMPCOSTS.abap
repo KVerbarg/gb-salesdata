@@ -5,7 +5,7 @@
 *&---------------------------------------------------------------------*
 REPORT zucc_analytics_sdgen_impcosts.
 
-*DELETE FROM zucc_analy_costs.
+* DELETE FROM zucc_analy_costs.
 
 DATA lt_files TYPE filetable.
 DATA ls_file LIKE LINE OF lt_files.

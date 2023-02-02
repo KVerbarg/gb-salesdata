@@ -4,12 +4,19 @@ FUNCTION zucc_analytics_sdgen_cost.
 *"  IMPORTING
 *"     REFERENCE(I_DATE) TYPE  D DEFAULT SY-DATUM
 *"     REFERENCE(I_LOG) TYPE  BALLOGHNDL
+*"  EXPORTING
+*"     REFERENCE(E_CHANGED) TYPE  C
 *"----------------------------------------------------------------------
+
+* https://github.com/KVerbarg/gb-salesdata
+* sets the standard price for materials according to year of I_DATE
+* and predefined costs in Table zucc_analy_costs.
 
   CONSTANTS checked TYPE c VALUE 'X'.
   DATA lv_year TYPE n LENGTH 4.
   lv_year = i_date(4).
   ASSERT lv_year IS NOT INITIAL.
+  clear e_changed.
 
 * Check if we have cost deviation for the given year
   SELECT c~*
@@ -22,7 +29,8 @@ FUNCTION zucc_analytics_sdgen_cost.
       ( m~vprsv = 'V' AND cost <> m~verpr )
       OR
       ( m~vprsv = 'S' AND cost <> m~stprs )
-    ).
+    )
+    ORDER BY c~matnr, c~plant.
 
     " material (adjust data type for BAPI)
     DATA lv_material TYPE matnr18.
@@ -130,6 +138,9 @@ FUNCTION zucc_analytics_sdgen_cost.
       MESSAGE ID ls_return-id TYPE ls_return-type NUMBER ls_return-number WITH ls_return-message_v1 ls_return-message_v2 ls_return-message_v3 ls_return-message_v4.
     ENDLOOP.
     WRITE: / 'Material', lv_material, 'Plant', ls_data-plant, 'Year', lv_year, 'Cost', ls_data-cost, 'Document', ls_doc-ml_doc_num.
+
+    " notify calling program
+    e_changed = checked.
 
   ENDSELECT.
 
