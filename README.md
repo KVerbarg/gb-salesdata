@@ -81,3 +81,7 @@ In Folder `abap/` we have the tools to import this generated data into a S/4HANA
 Generation of data and setting prices should be a one-time activity. During regular operation, the background job should create sales orders on a daily basis. To troubleshoot this task, confer the description in `abap/Import2ERP.md`.
 
 In the central productive S4H client (currently this is A03/220) there is a User `ANALYTICS` with password `analytics` which can be used by UCC customers to verify and test data.
+
+# Known problems
+
+- The number of items per sales order is fixed for each customer. E.g. every order of "Airport Bikes" always consists of 9 items.
